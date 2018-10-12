@@ -1,7 +1,7 @@
 /**
  * 
  */
-package at.ac.htl.perg.bhif17all.array_menu;
+package at.ac.bhif17.arraymenuobject;
 
 /**
  * 

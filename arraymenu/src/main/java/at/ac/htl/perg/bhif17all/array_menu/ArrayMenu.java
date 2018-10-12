@@ -1,4 +1,4 @@
-package at.ac.htl.perg.bhif17all.array_menu;
+package at.ac.bhif17.arraymenuobject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +20,7 @@ public class ArrayMenu {
 	 * The array with the menu
 	 */
 	double[] array = { 4, 7, 2, 8, 3, 8, 5, 1, 9, 10, 15 };
+	ArrayMenuOperation[] operation =  new ArrayMenuOperation [9];
 	/**
 	 * Determines if the program is running
 	 */
@@ -37,39 +38,10 @@ public class ArrayMenu {
 		System.out.printf("Choose a number from 1-9%n");
 		try { // Try to get a numeric input
 			int input = scanner.nextInt();
-			switch (input) { // Switch trough the options the user has chosen
-			case 1:
-				array = append(array); // Set the array to a clone with an appended value
-				break;
-			case 2:
-				array = insert(array); // Set the array to a clone with an inserted value
-				break;
-			case 3:
-				array = delete1(array); // Set the array to a clone with a deleted index
-				break;
-			case 4:
-				array = delete2(array); // Set the array to a clone with a deleted values
-				break;
-			case 5:
-				search(array); // Search an element
-				break;
-			case 6:
-				array = sort(array); // Sort the array
-				break;
-			case 7:
-				array = randommix(array); // Set the array to a randomly mixed version
-				break;
-			case 8:
-				output(array); // Print the array
-				break;
-			case 9:
-				running = false; // Terminate the program
-				System.err.println("Shutting down!!!");
-				break;
-			default:
-				System.err.println("Error invalid input!");
-				break;
-			}
+			
+			
+			ArrayMenuOperation op = operation[input-1];
+			array = op.execute(array);
 
 		} catch (InputMismatchException e) { // And shut down if its not a number
 			System.err.println("Invalid input! Please restart the program!");
@@ -82,45 +54,26 @@ public class ArrayMenu {
 	 */
 	private void printSelectionInfo() {
 	
-		ArrayMenuOperation[] operation =  new ArrayMenuOperation [9];
+		
 		int i = 0;
 		
 		operation[i++] = new AppendOperation();
+		operation[i++] = new InsertOperation();
+		operation[i++] = new DeleteAnIndexOperation();
+		operation[i++] = new DeleteAnElementOperation();
+		operation[i++] = new SearchOperation();
+		operation[i++] = new SortOperation();
+		operation[i++] = new RandomMixOperation();
+		operation[i++] = new OutputOperation();
+		operation[i++] = new TerminateOperation();
 		
-		ArrayMenuOperation insert = new ArrayMenuOperation();
-		insert.name = "Insert";
-		operation[i++] = insert;
 		
-		ArrayMenuOperation deleteAnIndex = new ArrayMenuOperation();
-		deleteAnIndex.name = "deleteAnIndex";
-		operation[i++] = deleteAnIndex;
 		
-		ArrayMenuOperation deleteAnElement = new ArrayMenuOperation();
-		deleteAnElement.name = "deleteAnElement";
-		operation[i++] = deleteAnElement;
-		/*
-		ArrayMenuOperation append = new ArrayMenuOperation();
-		append.name = "Append";
-		operation[i++] = "Seatch an Element";
-		ArrayMenuOperation append = new ArrayMenuOperation();
-		append.name = "Append";
-		operation[i++] = "Sort";
-		ArrayMenuOperation append = new ArrayMenuOperation();
-		append.name = "Append";
-		operation[i++] = "Random mix";
-		ArrayMenuOperation append = new ArrayMenuOperation();
-		append.name = "Append";
-		operation[i++] = "Print Array";
-		ArrayMenuOperation append = new ArrayMenuOperation();
-		append.name = "Append";
-		operation[i++] = "Terminate";
-		*/
- 	
+		
 		for (int j = 0; j < i; j++) {
 			ArrayMenuOperation op = operation[j];
 			System.out.println("(" + (j+1) +")" + " " + op.name);
 		}
-	
 	}
 
 	/**
